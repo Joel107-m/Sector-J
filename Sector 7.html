@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <script>
+  // Obliga a la pantalla a ponerse en horizontal al cargar el juego
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock('landscape').catch(function(error) {
+      console.log("El bloqueo de orientación requiere pantalla completa o interacción.");
+    });
+  }
+  </script>
 <meta charset="UTF-8">
 <title>SECTOR-7: Fénix del Mar v3</title>
 <style>
