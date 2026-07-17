@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <script>
-  // Obliga a la pantalla a ponerse en horizontal al cargar el juego
-  if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock('landscape').catch(function(error) {
-      console.log("El bloqueo de orientación requiere pantalla completa o interacción.");
-    });
+<script>
+  // Esta función intenta bloquear la pantalla en horizontal
+  async function lockLandscape() {
+    try {
+      // Intenta forzar el modo horizontal
+      if (screen.orientation && screen.orientation.lock) {
+        await screen.orientation.lock('landscape');
+        console.log("Pantalla bloqueada en horizontal");
+      } else {
+        // En algunos navegadores viejos se usa esta opción
+        if (screen.lockOrientation) {
+          screen.lockOrientation("landscape");
+        }
+      }
+    } catch (error) {
+      console.warn("No se pudo bloquear la orientación: " + error);
+    }
   }
+
+  // Se ejecuta automáticamente al cargar el juego
+  window.addEventListener("load", lockLandscape);
+
+  // También se intenta ejecutar si el usuario toca la pantalla (a veces es necesario por seguridad)
+  window.addEventListener("click", lockLandscape);
 </script>
 <meta charset="UTF-8">
 <title>SECTOR-7: Fénix del Mar v3</title>
